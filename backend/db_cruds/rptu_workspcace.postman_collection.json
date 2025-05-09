@@ -1,0 +1,176 @@
+{
+	"info": {
+		"_postman_id": "52b3f82b-db98-469e-97d9-fe6e17a77dc5",
+		"name": "rptu_workspcace",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31922187"
+	},
+	"item": [
+		{
+			"name": "download-archive",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\": \"1\"}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/download-archive",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"download-archive"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_datasets",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/datasets/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"datasets",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_particular_dataset",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/datasets/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"datasets",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create_new_dataset",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Economic Indicators 2025\",\n    \"type\": \"time-series\",\n    \"horizon\": \"quarterly\",\n    \"link\": \"https://example.com/datasets/econ2025\",\n    \"countries\": \"USA, Canada, Mexico\",\n    \"last_updated\": \"2025-05-01\",\n    \"regions\": \"North America\",\n    \"views\": 1250\n  }"
+				},
+				"url": {
+					"raw": "http://localhost:8000/datasets",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"datasets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update_dataset",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Updated Economic 2025\",\n    \"views\": 1500,\n    \"last_updated\": \"2025-05-08\"\n  }"
+				},
+				"url": {
+					"raw": "http://localhost:8000/datasets/70",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"datasets",
+						"70"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete_dataset",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/datasets/66",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"datasets",
+						"66"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
