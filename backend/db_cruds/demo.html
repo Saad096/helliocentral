@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Directory Downloader</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    input[type="text"] { padding: 8px; width: 300px; }
+    button { padding: 8px 12px; margin-left: 8px; }
+    ul { list-style-type: none; padding-left: 0; }
+    li { margin: 4px 0; }
+    a { color: blue; text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <h2>Directory Downloader</h2>
+  <input type="text" id="dirname" placeholder="Enter directory name" />
+  <button onclick="downloadArchive()">Download Zip</button>
+  <button onclick="listFiles()">Show Files</button>
+
+  <h3>Files in Directory:</h3>
+  <ul id="fileList"></ul>
+
+  <script>
+    const apiBase = "http://localhost:8000";
+
+    function downloadArchive() {
+      const dirname = document.getElementById('dirname').value;
+      if (!dirname) return alert("Please enter a directory name");
+
+      fetch(`${apiBase}/archive-and-download`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ dirname })
+      })
+      .then(response => {
+        if (!response.ok) throw new Error("Download failed");
+        return response.blob();
+      })
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${dirname}.zip`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      })
+      .catch(err => alert(err.message));
+    }
+
+    function listFiles() {
+      const dirname = document.getElementById('dirname').value;
+      if (!dirname) return alert("Please enter a directory name");
+
+      fetch(`${apiBase}/list-files`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ dirname })
+      })
+      .then(res => res.json())
+      .then(data => {
+        const ul = document.getElementById('fileList');
+        ul.innerHTML = '';
+
+        data.files.forEach(file => {
+          const li = document.createElement('li');
+          const link = document.createElement('a');
+          link.href = file.download_link;
+          link.textContent = file.filename;
+          link.download = file.filename;
+          li.appendChild(link);
+          ul.appendChild(li);
+        });
+      })
+      .catch(err => alert("Failed to list files: " + err.message));
+    }
+  </script>
+
+</body>
+</html>
